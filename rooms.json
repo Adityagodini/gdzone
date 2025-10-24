@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "name": "GD Room 1",
+    "status": "Available"
+  },
+  {
+    "id": 2,
+    "name": "GD Room 2",
+    "status": "Available"
+  },
+  {
+    "id": 3,
+    "name": "GD Room 3",
+    "status": "Available"
+  }
+]

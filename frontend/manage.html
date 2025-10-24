@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Manage GD Booking</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/frontend/style.css" />
+</head>
+<body>
+  <h1>🛠️ Manage Booking</h1>
+
+  <form id="manageForm" autocomplete="off">
+    <label for="roomId">Room ID:</label>
+    <input type="number" id="roomId" required min="1" step="1" placeholder="e.g., 1" />
+
+    <label for="bookingCode">Booking Code:</label>
+    <input type="text" id="bookingCode" required placeholder="8-letter code"
+           pattern="[a-fA-F0-9]{8}" title="8 hex characters" spellcheck="false" />
+
+    <label for="extraMinutes">Extend by (minutes):</label>
+    <input type="number" id="extraMinutes" placeholder="e.g., 60" min="1" step="5" />
+
+    <div style="margin-top: 16px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+      <button type="button" id="extendBtn">Extend</button>
+      <button type="button" id="releaseBtn" class="btn-danger">Release Now</button>
+    </div>
+  </form>
+
+  <p id="result"></p>
+
+  <div style="margin-top: 16px;">
+    <a href="/frontend/index.html">← Back to Availability</a>
+    <a href="/frontend/book.html" style="margin-left: 10px;">➕ Book a Room</a>
+  </div>
+
+  <script src="/frontend/manage.js"></script>
+</body>
+</html>

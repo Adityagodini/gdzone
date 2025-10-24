@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Book GD Room</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/frontend/style.css" />
+</head>
+<body>
+  <h2>Book GD Room</h2>
+
+  <form id="bookingForm" autocomplete="off">
+    <label for="studentName">Your Name:</label>
+    <input type="text" id="studentName" required placeholder="e.g., Alex Kim" />
+
+    <label for="purpose">Purpose:</label>
+    <input type="text" id="purpose" required placeholder="e.g., Project discussion" />
+
+    <label for="duration">Duration (minutes):</label>
+    <input type="number" id="duration" required min="5" max="720" step="5" placeholder="e.g., 60" />
+
+    <label for="roomId">Room ID:</label>
+    <input type="number" id="roomId" required min="1" step="1" placeholder="e.g., 1" />
+
+    <button type="submit">Book Room</button>
+  </form>
+
+  <p id="result"></p>
+
+  <div style="margin-top: 16px;">
+    <a href="/frontend/index.html">← Back to Availability</a>
+    <a href="/frontend/manage.html" style="margin-left: 10px;">🛠 Manage Booking</a>
+  </div>
+
+  <script src="/frontend/script.js"></script>
+</body>
+</html>
