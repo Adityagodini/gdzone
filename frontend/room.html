@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GD Room Status</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/frontend/style.css" />
+</head>
+<body>
+  <h2 id="roomName">Room</h2>
+
+  <div id="roomStatus"></div>
+
+  <div style="margin-top: 16px;">
+    <a href="/frontend/index.html">← Back to Availability</a>
+    <a id="manageLink" href="/frontend/manage.html" style="margin-left: 10px;">🛠 Manage Booking</a>
+    <a id="bookLink" href="/frontend/book.html" style="margin-left: 10px;">➕ Book This Room</a>
+  </div>
+
+  <script>
+    const API = "/api";
+    let timerHandle = null;
+
+    function escapeHTML(s = "") {
+      return String(s)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+    }
+
+    function getRoomId() {
+      const q = new URLSearchParams(location.search).get("id");
+      if (q) return parseInt(q, 10);
+      const parts = location.pathname.split("/").filter(Boolean);
+      const last = parts[parts.length - 1];
+      return parseInt(last, 10);
+    }
+
+    function formatTimeLeft(ms) {
+      const totalSec = Math.max(0, Math.floor(ms / 1000));
+      const hrs = Math.floor(totalSec / 3600);
+      const mins = Math.floor((totalSec % 3600) / 60);
+      const secs = totalSec % 60;
+      return hrs > 0
+        ? `${hrs}h ${String(mins).padStart(2, "0")}m ${String(secs).padStart(2, "0")}s`
+        : `${mins}m ${String(secs).padStart(2, "0")}s`;
+    }
+
+    function startCountdown(endTimeMs) {
+      if (timerHandle) clearInterval(timerHandle);
+
+      const el = document.getElementById("timer");
+      if (!el) return;
+
+      const update = () => {
+        const diff = endTimeMs - Date.now();
+        if (diff <= 0) {
+          el.textContent = "Available";
+          clearInterval(timerHandle);
+          timerHandle = null;
+          // Reload details to reflect new status
+          loadRoom();
+          return;
+        }
+        el.textContent = formatTimeLeft(diff);
+      };
+
+      update();
+      timerHandle = setInterval(update, 1000);
+    }
+
+    async function loadRoom() {
+      const id = getRoomId();
+      if (!Number.isInteger(id)) {
+        document.getElementById("roomStatus").innerHTML =
+          `<p style="color:#ffb4b4">Invalid room ID.</p>`;
+        return;
+      }
+
+      // Update manage/book links with this roomId
+      document.getElementById("manageLink").href = `/frontend/manage.html?roomId=${encodeURIComponent(id)}`;
+      document.getElementById("bookLink").href = `/frontend/book.html?roomId=${encodeURIComponent(id)}`;
+
+      try {
+        const res = await fetch(`${API}/room/${id}`, { cache: "no-store" });
+        if (!res.ok) throw new Error(`Failed to load room (${res.status})`);
+        const r = await res.json();
+
+        document.getElementById("roomName").textContent = r.name || `Room ${id}`;
+
+        const statusClass = (r.status || "").toLowerCase();
+        const occupiedHtml = `
+          <p>Booked by: ${escapeHTML(r.bookedBy || "")}</p>
+          <p>Purpose: ${escapeHTML(r.purpose || "")}</p>
+          ${r.endTime ? `<p>⏱ Time left: <span id="timer"></span></p>` : ""}
+        `;
+        const availableHtml = `
+          <p>Available! You can book it now on the portal.</p>
+          <a href="/frontend/book.html?roomId=${encodeURIComponent(id)}">Book Now</a>
+        `;
+
+        document.getElementById("roomStatus").innerHTML = `
+          <div class="room ${statusClass}">
+            <p>Status: <b>${escapeHTML(r.status || "")}</b></p>
+            ${r.status === "Occupied" ? occupiedHtml : availableHtml}
+          </div>
+        `;
+
+        if (r.status === "Occupied" && r.endTime) {
+          const endMs = typeof r.endTime === "string" ? Date.parse(r.endTime) : Number(r.endTime);
+          if (!Number.isNaN(endMs)) startCountdown(endMs);
+        } else if (timerHandle) {
+          clearInterval(timerHandle);
+          timerHandle = null;
+        }
+      } catch (e) {
+        document.getElementById("roomStatus").innerHTML =
+          `<p style="color:#ffb4b4">Could not load room. ${escapeHTML(e.message)}</p>`;
+      }
+    }
+
+    loadRoom();
+  </script>
+</body>
+</html>
