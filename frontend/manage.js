@@ -6,8 +6,6 @@ const API =
     ? "http://localhost:5000/api"
     : "https://gdzone-f5nn.onrender.com/api";
 
-fetch(`${API}/rooms`);
-
 const roomIdInput = document.getElementById("roomId");
 const bookingCodeInput = document.getElementById("bookingCode");
 const extraMinutesInput = document.getElementById("extraMinutes");
