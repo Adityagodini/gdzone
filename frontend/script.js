@@ -61,7 +61,7 @@ async function refreshRooms() {
               ${manageLink}
             `
                 : `
-              <a href="/frontend/book.html?roomId=${encodeURIComponent(r.id)}">Book Now</a>
+              <a href="book.html?roomId=${encodeURIComponent(r.id)}">Book Now</a>
             `
             }
           </div>
@@ -173,7 +173,7 @@ if (form) {
             ? `<b>Booking code:</b> <code>${escapeHTML(bookingCode)}</code><br/>`
             : `<i>(No booking code received)</i><br/>`
         }
-        <a href="/frontend/manage.html?roomId=${encodeURIComponent(roomId)}">Manage this booking</a>
+        <a href="manage.html?roomId=${encodeURIComponent(r.id)}">Manage this booking</a>
       `;
       resultEl.style.color = "#006400";
 
