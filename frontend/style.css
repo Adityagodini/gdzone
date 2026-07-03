@@ -20,7 +20,7 @@ body {
   font-family: 'Poppins', sans-serif;
   background:
     linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)),
-    url('/frontend/lib.jpg') no-repeat center center / cover;
+    url('lib.jpg') no-repeat center center / cover;
   color: #fff;
   text-align: center;
   padding: 40px 20px;

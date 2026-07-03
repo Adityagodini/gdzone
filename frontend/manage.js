@@ -1,4 +1,4 @@
-// frontend/manage.js
+
 
 // Use backend on 5000 if the page is served from a different port (like 3002 or file://)
 const API =

@@ -6,7 +6,7 @@
   <title>GD Room Status</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/frontend/style.css" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <h2 id="roomName">Room</h2>
@@ -14,9 +14,9 @@
   <div id="roomStatus"></div>
 
   <div style="margin-top: 16px;">
-    <a href="/frontend/index.html">← Back to Availability</a>
-    <a id="manageLink" href="/frontend/manage.html" style="margin-left: 10px;">🛠 Manage Booking</a>
-    <a id="bookLink" href="/frontend/book.html" style="margin-left: 10px;">➕ Book This Room</a>
+    <a href="index.html">← Back to Availability</a>
+    <a id="manageLink" href="manage.html" style="margin-left: 10px;">🛠 Manage Booking</a>
+    <a id="bookLink" href="book.html" style="margin-left: 10px;">➕ Book This Room</a>
   </div>
 
   <script>
@@ -82,8 +82,8 @@
       }
 
       // Update manage/book links with this roomId
-      document.getElementById("manageLink").href = `/frontend/manage.html?roomId=${encodeURIComponent(id)}`;
-      document.getElementById("bookLink").href = `/frontend/book.html?roomId=${encodeURIComponent(id)}`;
+      document.getElementById("manageLink").href = `manage.html?roomId=${encodeURIComponent(id)}`;
+      document.getElementById("bookLink").href = `book.html?roomId=${encodeURIComponent(id)}`;
 
       try {
         const res = await fetch(`${API}/room/${id}`, { cache: "no-store" });
@@ -100,7 +100,7 @@
         `;
         const availableHtml = `
           <p>Available! You can book it now on the portal.</p>
-          <a href="/frontend/book.html?roomId=${encodeURIComponent(id)}">Book Now</a>
+          <a href="book.html?roomId=${encodeURIComponent(id)}">Book Now</a>
         `;
 
         document.getElementById("roomStatus").innerHTML = `

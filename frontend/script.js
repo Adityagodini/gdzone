@@ -1,5 +1,3 @@
-// frontend/script.js
-
 const API =
   window.location.hostname === "localhost"
     ? "http://localhost:5000/api"
@@ -41,7 +39,7 @@ async function refreshRooms() {
             : "";
 
         // Use absolute links so they work from anywhere
-        const manageLink = `<a href="/frontend/manage.html?roomId=${encodeURIComponent(
+        const manageLink = `<a href="manage.html?roomId=${encodeURIComponent(
           r.id
         )}">Manage Booking</a>`;
 
@@ -173,7 +171,7 @@ if (form) {
             ? `<b>Booking code:</b> <code>${escapeHTML(bookingCode)}</code><br/>`
             : `<i>(No booking code received)</i><br/>`
         }
-        <a href="manage.html?roomId=${encodeURIComponent(r.id)}">Manage this booking</a>
+        <a href="manage.html?roomId=${encodeURIComponent(roomId)}"> Manage this booking </a>
       `;
       resultEl.style.color = "#006400";
 
