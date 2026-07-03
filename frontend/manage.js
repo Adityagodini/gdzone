@@ -1,7 +1,12 @@
 // frontend/manage.js
 
 // Use backend on 5000 if the page is served from a different port (like 3002 or file://)
-const API = (location.port === "5000") ? "/api" : "http://localhost:5000/api";
+const API =
+  window.location.hostname === "localhost"
+    ? "http://localhost:5000/api"
+    : "https://gdzone-f5nn.onrender.com/api";
+
+fetch(`${API}/rooms`);
 
 const roomIdInput = document.getElementById("roomId");
 const bookingCodeInput = document.getElementById("bookingCode");

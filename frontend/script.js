@@ -1,6 +1,9 @@
 // frontend/script.js
 
-const API = (location.port === "5000") ? "/api" : "http://localhost:5000/api";
+const API =
+  window.location.hostname === "localhost"
+    ? "http://localhost:5000/api"
+    : "https://gdzone-f5nn.onrender.com/api";
 
 const countdowns = new Map();
 

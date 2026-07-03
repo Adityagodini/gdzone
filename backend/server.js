@@ -255,6 +255,10 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(FRONTEND, "index.html"));
 });
 
+app.get("/hello", (req, res) => {
+    res.send("Hello Aditya");
+});
+
 app.listen(PORT, () => {
   console.log(`✅ Server running on port ${PORT}`);
   console.log(`Frontend: http://localhost:${PORT}/`);
