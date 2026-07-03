@@ -15,7 +15,7 @@ const resultEl = document.getElementById("result");
 
 function show(msg, ok = true) {
   resultEl.textContent = msg;
-  resultEl.style.color = ok ? "#006400" : "#dc3545";
+  resultEl.style.color = ok ? "#20e920" : "#f6031b";
 }
 
 function int(val) {

@@ -173,14 +173,14 @@ if (form) {
         }
         <a href="manage.html?roomId=${encodeURIComponent(roomId)}"> Manage this booking </a>
       `;
-      resultEl.style.color = "#006400";
+      resultEl.style.color = "#04fc04";
 
       // Reset fields but keep roomId visible
       form.reset();
       document.getElementById("roomId").value = String(roomId);
     } catch (err) {
       resultEl.textContent = err.message || "Something went wrong.";
-      resultEl.style.color = "#dc3545";
+      resultEl.style.color = "#f80019";
     } finally {
       if (btn) btn.disabled = false;
     }
